@@ -1,0 +1,10 @@
+<h1>Category</h1>
+{% if restaurant_list %}
+    <ul>
+    {% for r in restaurant_list %}
+        <li><a href="/restaurant/{{ r.id }}/">{{ r.r_name }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No restaurant are available.</p>
+{% endif %}

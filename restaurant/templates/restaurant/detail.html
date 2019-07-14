@@ -1,0 +1,7 @@
+<h1>{{restaurant.r_name}}</h1>
+<h2>{{restaurant.r_address}}</h2>
+<ul>
+    {% for comment in restaurant.comment_set.all %}
+        <li>{{comment.c_user.u_name}} : {{ comment.c_desc }}</li>
+    {% endfor %}
+    </ul>

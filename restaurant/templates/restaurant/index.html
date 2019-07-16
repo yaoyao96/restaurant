@@ -1,10 +1,18 @@
-<h1>Category</h1>
+<title>View Restaurant</title>
+<h1 class="ui-widget-header ui-corner-all form">FOOD</h1>
 {% if restaurant_list %}
-    <ul>
+    <table class="form ui-widget-content ui-corner-all" style="height: 50px">
     {% for r in restaurant_list %}
-        <li><a href="/restaurant/{{ r.id }}/">{{ r.r_name }}</a></li>
+        <tr style="height: 50px"><td>
+            <a href="{% url 'restaurant:detail' r.id %}">{{ r.r_name }}</a></td></tr>
     {% endfor %}
-    </ul>
+        </table>
 {% else %}
     <p>No restaurant are available.</p>
 {% endif %}
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="/resources/demos/style.css">
+<style>
+    .form { margin: auto; text-align: center; width: 50vw;  }
+</style>

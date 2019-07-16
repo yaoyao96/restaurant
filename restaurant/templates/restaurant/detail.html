@@ -1,7 +1,25 @@
-<h1>{{restaurant.r_name}}</h1>
-<h2>{{restaurant.r_address}}</h2>
-<ul>
-    {% for comment in restaurant.comment_set.all %}
-        <li>{{comment.c_user.u_name}} : {{ comment.c_desc }}</li>
-    {% endfor %}
-    </ul>
+    <title>{{restaurant.r_name}} Detail</title>
+    <div class="ui-widget-header ui-corner-all form">
+        <h1>{{restaurant.r_name}}</h1>
+        <h2>{{restaurant.r_address}}</h2>
+        <input class="ui-button ui-widget ui-corner-all" type="submit" value="Add Comment">
+    </div>
+    {% if restaurant.comment_set.all %}
+        <table class="items ui-widget-content ui-corner-all">
+                {% for comment in restaurant.comment_set.all %}
+            <tr style="height: 50px"><td>
+                   <p style="background-color:bisque"><strong>{{comment.c_user.u_name}}</strong> : {{ comment.c_rate }}/5</p>
+                    <p>{{ comment.c_desc }}</p>
+                </ul> </td></tr>
+        {% endfor %}
+            </table>
+    {% else %}
+        <p class="items ui-widget-content ui-corner-all">No comment yet</p>
+    {% endif %}
+    
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+    <style>
+        .form { margin: auto; text-align: center; width: 50vw;  }
+        .items { margin: auto; height:50 px; width: 50vw;  }
+    </style>

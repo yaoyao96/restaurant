@@ -4,17 +4,18 @@ from django.shortcuts import get_object_or_404,render
 from django.http import HttpResponse
 from django.http import Http404
 from django.template import loader
+from django.views import generic
 
 from .models import Restaurant
 
 
-def index(request):
-    restaurant_list = Restaurant.objects.order_by('-r_name')[:5]
-    context = {
-        'restaurant_list': restaurant_list,
-    }
-    return render(request, 'restaurant/index.html', context)
+class IndexView(generic.ListView):
+    template_name = 'restaurant/index.html'
+    context_object_name = 'restaurant_list'
+    def get_queryset(self):
+        """Return the last five published questions."""
+        return Restaurant.objects.order_by('-r_name')[:5]
 
-def detail(request, restaurant_id):
-    restaurant = get_object_or_404(Restaurant, pk=restaurant_id)
-    return render(request, 'restaurant/detail.html', {'restaurant':restaurant})
+class DetailView(generic.DetailView):
+    model = Restaurant
+    template_name = 'restaurant/detail.html'

@@ -1,15 +1,19 @@
+
     <title>{{restaurant.r_name}} Detail</title>
     <div class="ui-widget-header ui-corner-all form">
         <h1>{{restaurant.r_name}}</h1>
         <h2>{{restaurant.r_address}}</h2>
-        <input class="ui-button ui-widget ui-corner-all" type="submit" value="Add Comment">
+        <input class="ui-button" type="submit" value="Add Comment">
     </div>
     {% if restaurant.comment_set.all %}
         <table class="items ui-widget-content ui-corner-all">
                 {% for comment in restaurant.comment_set.all %}
             <tr style="height: 50px"><td>
                    <p style="background-color:bisque"><strong>{{comment.c_user.u_name}}</strong> : {{ comment.c_rate }}/5</p>
-                    <p>{{ comment.c_desc }}</p>
+                    {{ comment.c_desc }}
+                    <div class="comment">
+                    <i class="fa fa-thumbs-up" style="color:gray; margin: 5px;"></i>
+                    <input class="ui-button" type="submit" value="Reply"></div>
                 </ul> </td></tr>
         {% endfor %}
             </table>
@@ -19,7 +23,10 @@
     
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="/resources/demos/style.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+
     <style>
         .form { margin: auto; text-align: center; width: 50vw;  }
-        .items { margin: auto; height:50 px; width: 50vw;  }
+        .items { margin: auto; width: 50vw;  }
+        .comment {float: right; margin: 10px;}
     </style>

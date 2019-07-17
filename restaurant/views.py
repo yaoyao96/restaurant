@@ -14,7 +14,7 @@ class IndexView(generic.ListView):
     context_object_name = 'restaurant_list'
     def get_queryset(self):
         """Return the last five published questions."""
-        return Restaurant.objects.order_by('-r_name')[:5]
+        return Restaurant.objects.order_by('r_name')
 
 class DetailView(generic.DetailView):
     model = Restaurant

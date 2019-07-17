@@ -21,6 +21,8 @@ class Comment(models.Model):
     c_rate = models.IntegerField(default=0)
     c_desc = models.CharField(max_length=200,null=True)
     c_date = models.DateField(default=date.today)
+    c_like = models.IntegerField(default=0)
+    c_reply = models.IntegerField(null=True)
     def __str__(self):
         return self.c_desc
 

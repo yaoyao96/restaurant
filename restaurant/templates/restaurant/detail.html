@@ -3,16 +3,18 @@
     <div class="ui-widget-header ui-corner-all form">
         <h1>{{restaurant.r_name}}</h1>
         <h2>{{restaurant.r_address}}</h2>
-        <input class="ui-button" type="submit" value="Add Comment">
+        <a href="{% url 'restaurant:comment' restaurant.id %}" class="ui-button" style="margin: 5px">Add Comment</a>
     </div>
     {% if restaurant.comment_set.all %}
         <table class="items ui-widget-content ui-corner-all">
                 {% for comment in restaurant.comment_set.all %}
             <tr style="height: 50px"><td>
-                   <p style="background-color:bisque"><strong>{{comment.c_user.u_name}}</strong> : {{ comment.c_rate }}/5</p>
+                   <p style="background-color:bisque"><strong>{{comment.c_user.u_name}}</strong> :
+                    {{ comment.c_rate }}</p>
                     {{ comment.c_desc }}
                     <div class="comment">
-                    <i class="fa fa-thumbs-up" style="color:gray; margin: 5px;"></i>
+                    <i class="fa fa-thumbs-up" style="color:gray; margin: 5px;"></i> 
+                    {{comment.c_like}}
                     <input class="ui-button" type="submit" value="Reply"></div>
                 </ul> </td></tr>
         {% endfor %}

@@ -7,7 +7,7 @@ from django.template import loader
 from django.views import generic
 from django.urls import reverse
 
-from .models import Restaurant, Comment, User, Like
+from .models import Restaurant, Review, User, Comment
 
 
 class IndexView(generic.ListView):
@@ -20,28 +20,28 @@ class DetailView(generic.DetailView):
     model = Restaurant
     template_name = 'restaurant/detail.html'
 
-class CommentView(generic.DetailView):
+class ReviewView(generic.DetailView):
     model = Restaurant
-    template_name = 'restaurant/comment.html'
+    template_name = 'restaurant/review.html'
 
-def SubmitComment(request, restaurant_id):
+def SubmitReview(request, restaurant_id):
     restaurant = get_object_or_404(Restaurant, pk=restaurant_id)
     new_user = User(u_name='')
     new_user.u_name = request.POST['name']
     new_user.save()
-    new_comment = Comment(c_restaurant = restaurant, c_user = new_user)
-    new_comment.c_rate = request.POST['rate']
-    new_comment.c_desc = request.POST['desc']
-    new_comment.save()
+    new_review = Review(r_restaurant = restaurant, r_user = new_user)
+    new_review.r_rate = request.POST['rate']
+    new_review.r_desc = request.POST['desc']
+    new_review.save()
         # Always return an HttpResponseRedirect after successfully dealing
         # with POST data. This prevents data from being posted twice if a
         # user hits the Back button.
     return HttpResponseRedirect(reverse('restaurant:detail', args=(restaurant.id,)))
 
-def LikeComment(request, restaurant_id, comment_id):
-   comment = get_object_or_404(Comment, pk=comment_id)
-   comment.c_like += 1
-   comment.save()
-#    restaurant=comment.c_restaurant
+def LikeReview(request, restaurant_id, review_id):
+   review = get_object_or_404(Review, pk=review_id)
+   review.r_like += 1
+   review.save()
+#    restaurant=review.r_restaurant
    return HttpResponseRedirect(reverse('restaurant:detail', args=(restaurant_id,)))
     

@@ -1,14 +1,14 @@
 <div class="ui-widget-header ui-corner-all form">
-<h2>Write Comment for {{ restaurant.r_name }}</h2>
+<h2>Write Review for {{ restaurant.r_name }}</h2>
 </div>
 <!-- need validation -->
 <form class="form ui-widget-content ui-corner-all" 
-action="{% url 'restaurant:SubmitComment' restaurant.id %}" method="post">
+action="{% url 'restaurant:SubmitReview' restaurant.id %}" method="post">
 {% csrf_token %}
 <p class="item">User Name: <input type="text" name="name" maxlength="30" required></p>
 <p class="item">Rate: <input type="number" name="rate" min="0" max="5" required></p>
 <p class="item">Description: <input type="text" name="desc" maxlength="200"></p>
-<input type="submit" value="comment" class="item">
+<input type="submit" value="review" class="item">
 </form>
 
 <style>

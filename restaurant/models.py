@@ -15,20 +15,28 @@ class User(models.Model):
     def __str__(self):
         return self.u_name
 
+class Review(models.Model):
+    r_restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
+    r_user = models.ForeignKey(User, on_delete=models.CASCADE)
+    r_rate = models.IntegerField(default=0)
+    r_desc = models.CharField(max_length=200,null=True)
+    r_date = models.DateField(default=date.today)
+    r_like = models.IntegerField(default=0)
+    r_reply = models.IntegerField(null=True)
+    def __str__(self):
+        return self.r_desc
+
 class Comment(models.Model):
-    c_restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
     c_user = models.ForeignKey(User, on_delete=models.CASCADE)
-    c_rate = models.IntegerField(default=0)
+    c_review = models.ForeignKey(Review, on_delete=models.CASCADE)
+    c_comment_id = models.IntegerField(null=True)
     c_desc = models.CharField(max_length=200,null=True)
-    c_date = models.DateField(default=date.today)
-    c_like = models.IntegerField(default=0)
-    c_reply = models.IntegerField(null=True)
     def __str__(self):
         return self.c_desc
 
-class Like(models.Model):
-    l_user = models.ForeignKey(User, on_delete=models.CASCADE)
-    l_comment = models.ForeignKey(Comment, on_delete=models.CASCADE)
-    def __str__(self):
-        return self.l_user.u_name + " / " + self.l_comment.c_desc
+# class Like(models.Model):
+#     l_user = models.ForeignKey(User, on_delete=models.CASCADE)
+#     l_comment = models.ForeignKey(Comment, on_delete=models.CASCADE)
+#     def __str__(self):
+#         return self.l_user.u_name + " / " + self.l_comment.c_desc
 

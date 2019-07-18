@@ -3,34 +3,34 @@
     <div class="ui-widget-header ui-corner-all form">
         <h1>{{restaurant.r_name}}</h1>
         <h2>{{restaurant.r_address}}</h2>
-        <a href="{% url 'restaurant:comment' restaurant.id %}" class="ui-button" style="margin: 5px">Add Comment</a>
+        <a href="{% url 'restaurant:review' restaurant.id %}" class="ui-button" style="margin: 5px">Add Review</a>
     </div>
-    {% if restaurant.comment_set.all %}
+    {% if restaurant.review_set.all %}
         <table class="items ui-widget-content ui-corner-all">
                 {% csrf_token %}
-                {% for comment in restaurant.comment_set.all %}
+                {% for review in restaurant.review_set.all %}
             <tr style="height: 50px;"><td>
                    <p style="background-color:rgba(235, 233, 228, 0.856);padding: 3px"><i class="fas fa-user-circle"></i> &nbsp;
-                    <strong>{{comment.c_user.u_name}}</strong>
-                    {% for i in "x"|ljust:comment.c_rate %}
+                    <strong>{{review.r_user.u_name}}</strong>
+                    {% for i in "x"|ljust:review.r_rate %}
                     <span style="color: gold">&#9733;</span>
                     {% endfor %}
                 </p>
                 <!-- description -->
-                    <div class="crop">{{ comment.c_desc }}
+                    <div class="crop">{{ review.r_desc }}
                     </div>
                     <!-- here is reply -->
                     <div style="border-left: 5px solid green; background-color: rgba(211, 211, 211, 0.411); margin:10px; padding: 2px">Here is reply</div>
                 <!-- like & reply  -->
-                    <div class="comment">
-                    <i counter="{{ forloop.counter }}" commentId="{{comment.id}}" click=true class="fa fa-thumbs-up" style="margin: 5px;color:gray" ></i>
-                    <span id="like_count{{forloop.counter}}">{{comment.c_like}}</span>
+                    <div class="review">
+                    <i counter="{{ forloop.counter }}" reviewId="{{review.id}}" click=true class="fa fa-thumbs-up" style="margin: 5px;color:gray" ></i>
+                    <span id="like_count{{forloop.counter}}">{{review.r_like}}</span>
                     <input class="ui-button" type="submit" value="Reply"></div>
             </td></tr>
         {% endfor %}
             </table>
     {% else %}
-        <p class="items ui-widget-content ui-corner-all">No comment yet</p>
+        <p class="items ui-widget-content ui-corner-all">No review yet</p>
     {% endif %}
     
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -39,7 +39,7 @@
     <style>
         .form { margin: auto; text-align: center; width: 50vw;  }
         .items { margin: auto; width: 50vw;}
-        .comment {float: right; margin: 10px;}
+        .review {float: right; margin: 10px;}
         .crop {width:300px; overflow:hidden; height:50px; line-height:50px;}​
     </style>
 
@@ -51,8 +51,8 @@
           console.log(typeof like)
           if(like){
           $(this).css("color","red")
-          var comment_id = $(this).attr("commentId")
-          $.post(comment_id+"/likecomment/",
+          var review_id = $(this).attr("reviewId")
+          $.post(review_id+"/likereview/",
           {
               csrfmiddlewaretoken: "{{ csrf_token }}"
             }

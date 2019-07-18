@@ -7,10 +7,10 @@ urlpatterns = [
     path('', views.IndexView.as_view(), name='index'),
     # ex: /restaurant/5/
     path('<int:pk>/', views.DetailView.as_view(), name='detail'),
-    # ex: /restaurant/5/comment
-    path('<int:pk>/comment/', views.CommentView.as_view(), name='comment'),
-    # ex: /restaurant/5/submitcomment
-    path('<int:restaurant_id>/submitcomment/', views.SubmitComment, name='SubmitComment'),
-    # ex: /restaurant/5/likecomment
-    path('<int:restaurant_id>/<int:comment_id>/likecomment/', views.LikeComment, name='LikeComment'),
+    # ex: /restaurant/5/review
+    path('<int:pk>/review/', views.ReviewView.as_view(), name='review'),
+    # ex: /restaurant/5/submitreview
+    path('<int:restaurant_id>/submitreview/', views.SubmitReview, name='SubmitReview'),
+    # ex: /restaurant/5/likereview
+    path('<int:restaurant_id>/<int:review_id>/likereview/', views.LikeReview, name='LikeReview'),
 ]

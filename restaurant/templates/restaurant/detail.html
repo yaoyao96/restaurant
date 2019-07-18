@@ -2,11 +2,19 @@
     <title>{{restaurant.r_name}} Detail</title>
     <div class="ui-widget-header ui-corner-all form">
         <h1>{{restaurant.r_name}}</h1>
-        <h2>{{restaurant.r_address}}</h2>
+        <h2>{{restaurant.r_address}} {{review_number}}</h2>
+        <!-- show rate -->
+        {% if restaurant.review_set.all %}
+        {% for i in "x"|ljust:average_rate.r_rate__avg %}
+                    <span style="color: gold">&#9733;</span>
+                    {% endfor %}
+            {{average_rate.r_rate__avg}}{% endif %}
         <a href="{% url 'restaurant:review' restaurant.id %}" class="ui-button" style="margin: 5px">Add Review</a>
     </div>
     {% if restaurant.review_set.all %}
         <table class="items ui-widget-content ui-corner-all">
+            <th style="text-align: right;">
+            {{review_number}} Reviews</th>
                 {% csrf_token %}
                 {% for review in restaurant.review_set.all %}
             <tr style="height: 50px;"><td>
@@ -20,12 +28,22 @@
                     <div class="crop">{{ review.r_desc }}
                     </div>
                     <!-- here is reply -->
-                    <div style="border-left: 5px solid green; background-color: rgba(211, 211, 211, 0.411); margin:10px; padding: 2px">Here is reply</div>
+                    {% if review.comment_set.all %}
+                    <div style="border-left: 5px solid green; background-color: rgba(211, 211, 211, 0.411); margin:10px; padding: 2px">
+                            {% for comment in review.comment_set.all %}
+                            <p>&nbsp;<i class="fas fa-comment-dots"></i>&nbsp;<strong>{{comment.c_user.u_name}}</strong> :
+                                {% if comment.c_reply_user %}<strong>@{{comment.c_reply_user}}</strong> {% endif %}
+                                {{comment.c_desc}}
+                            <a href="{% url 'restaurant:reply' comment.id %}" style="float: right;"><i class="fas fa-reply"></i> Reply  </a>
+                            </p>
+                            {% endfor %}
+                    </div>
+                    {% endif %}
                 <!-- like & reply  -->
                     <div class="review">
                     <i counter="{{ forloop.counter }}" reviewId="{{review.id}}" click=true class="fa fa-thumbs-up" style="margin: 5px;color:gray" ></i>
                     <span id="like_count{{forloop.counter}}">{{review.r_like}}</span>
-                    <input class="ui-button" type="submit" value="Reply"></div>
+                    <a href="{% url 'restaurant:comment' review.id %}" class="ui-button" style="margin: 5px"> Comment</a>
             </td></tr>
         {% endfor %}
             </table>

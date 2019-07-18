@@ -1,0 +1,29 @@
+<div class="ui-widget-header ui-corner-all form">
+        <h2>reply for {{ user }}</h2>
+        <p>"{{description}}"</p>
+        </div>
+        <!-- need validation -->
+        {% if comment %}
+        <form class="form ui-widget-content ui-corner-all"
+        action="{% url 'restaurant:SubmitReply' review.id %}" method="post">
+        {% csrf_token %}
+        <p class="item">User Name: <input type="text" name="name" maxlength="30" required></p>
+        <p class="item">Comment: <input type="text" name="desc" maxlength="200"></p>
+        <input type="hidden" name="reply_user" value="{{user}}" >
+        <input type="submit" value="reply" class="item">
+        </form>
+        {% else %}
+        <form class="form ui-widget-content ui-corner-all"
+        action="{% url 'restaurant:SubmitComment' review.id %}" method="post">
+        {% csrf_token %}
+        <p class="item">User Name: <input type="text" name="name" maxlength="30" required></p>
+        <p class="item">Comment: <input type="text" name="desc" maxlength="200"></p>
+        <input type="submit" value="comment" class="item">
+        </form>
+        {% endif %}
+        <style>
+            .form { margin: auto; text-align: center; width: 50vw;  }
+            .item { margin: 20px;}
+        </style>
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+        <link rel="stylesheet" href="/resources/demos/style.css">

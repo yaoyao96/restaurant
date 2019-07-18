@@ -29,7 +29,7 @@ class Review(models.Model):
 class Comment(models.Model):
     c_user = models.ForeignKey(User, on_delete=models.CASCADE)
     c_review = models.ForeignKey(Review, on_delete=models.CASCADE)
-    c_comment_id = models.IntegerField(null=True)
+    c_reply_user = models.CharField(max_length=30, null=True)
     c_desc = models.CharField(max_length=200,null=True)
     def __str__(self):
         return self.c_desc

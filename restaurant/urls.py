@@ -11,4 +11,6 @@ urlpatterns = [
     path('<int:pk>/comment/', views.CommentView.as_view(), name='comment'),
     # ex: /restaurant/5/submitcomment
     path('<int:restaurant_id>/submitcomment/', views.SubmitComment, name='SubmitComment'),
+    # ex: /restaurant/5/likecomment
+    path('<int:restaurant_id>/<int:comment_id>/likecomment/', views.LikeComment, name='LikeComment'),
 ]

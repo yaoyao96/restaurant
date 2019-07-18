@@ -1,4 +1,4 @@
-
+<!DOCTYPE html>
     <title>{{restaurant.r_name}} Detail</title>
     <div class="ui-widget-header ui-corner-all form">
         <h1>{{restaurant.r_name}}</h1>
@@ -7,14 +7,15 @@
     </div>
     {% if restaurant.comment_set.all %}
         <table class="items ui-widget-content ui-corner-all">
+                {% csrf_token %}
                 {% for comment in restaurant.comment_set.all %}
             <tr style="height: 50px"><td>
                    <p style="background-color:bisque"><strong>{{comment.c_user.u_name}}</strong> :
                     {{ comment.c_rate }}</p>
                     {{ comment.c_desc }}
                     <div class="comment">
-                    <i class="fa fa-thumbs-up" style="color:gray; margin: 5px;"></i> 
-                    {{comment.c_like}}
+                    <i counter="{{ forloop.counter }}" commentId="{{comment.id}}" class="fa fa-thumbs-up" style="margin: 5px;color:gray" ></i>
+                    <span id="like_count{{forloop.counter}}">{{comment.c_like}}</span>
                     <input class="ui-button" type="submit" value="Reply"></div>
                 </ul> </td></tr>
         {% endfor %}
@@ -24,7 +25,6 @@
     {% endif %}
     
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <link rel="stylesheet" href="/resources/demos/style.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 
     <style>
@@ -32,3 +32,21 @@
         .items { margin: auto; width: 50vw;  }
         .comment {float: right; margin: 10px;}
     </style>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+    $(document).ready(function(){
+        $("i").click(function(){
+          $(this).css("color","red")
+          var comment_id = $(this).attr("commentId")
+          $.post(comment_id+"/likecomment/",
+          {
+              csrfmiddlewaretoken: "{{ csrf_token }}"
+            }
+        )
+          var counter = $(this).attr("counter")
+          var like_add = parseInt($('#like_count'+counter).html())+1
+          $('#like_count'+counter).html(like_add)
+      })})
+      </script>
+    

@@ -37,3 +37,11 @@ def SubmitComment(request, restaurant_id):
         # with POST data. This prevents data from being posted twice if a
         # user hits the Back button.
     return HttpResponseRedirect(reverse('restaurant:detail', args=(restaurant.id,)))
+
+def LikeComment(request, restaurant_id, comment_id):
+   comment = get_object_or_404(Comment, pk=comment_id)
+   comment.c_like += 1
+   comment.save()
+#    restaurant=comment.c_restaurant
+   return HttpResponseRedirect(reverse('restaurant:detail', args=(restaurant_id,)))
+    

@@ -10,18 +10,23 @@
                 {% csrf_token %}
                 {% for comment in restaurant.comment_set.all %}
             <tr style="height: 50px;"><td>
-                   <p style="background-color:bisque"><strong>{{comment.c_user.u_name}}</strong>
+                   <p style="background-color:rgba(235, 233, 228, 0.856);padding: 3px"><i class="fas fa-user-circle"></i> &nbsp;
+                    <strong>{{comment.c_user.u_name}}</strong>
                     {% for i in "x"|ljust:comment.c_rate %}
-                    &#9733;
+                    <span style="color: gold">&#9733;</span>
                     {% endfor %}
-                    <!-- {{comment.c_rate}} -->
                 </p>
-                    <div class="crop">{{ comment.c_desc }}</div>
+                <!-- description -->
+                    <div class="crop">{{ comment.c_desc }}
+                    </div>
+                    <!-- here is reply -->
+                    <div style="border-left: 5px solid green; background-color: rgba(211, 211, 211, 0.411); margin:10px; padding: 2px">Here is reply</div>
+                <!-- like & reply  -->
                     <div class="comment">
                     <i counter="{{ forloop.counter }}" commentId="{{comment.id}}" click=true class="fa fa-thumbs-up" style="margin: 5px;color:gray" ></i>
                     <span id="like_count{{forloop.counter}}">{{comment.c_like}}</span>
                     <input class="ui-button" type="submit" value="Reply"></div>
-                </ul> </td></tr>
+            </td></tr>
         {% endfor %}
             </table>
     {% else %}
@@ -33,7 +38,7 @@
 
     <style>
         .form { margin: auto; text-align: center; width: 50vw;  }
-        .items { margin: auto; width: 50vw;   }
+        .items { margin: auto; width: 50vw;}
         .comment {float: right; margin: 10px;}
         .crop {width:300px; overflow:hidden; height:50px; line-height:50px;}​
     </style>

@@ -5,7 +5,7 @@
 <form class="form ui-widget-content ui-corner-all" 
 action="{% url 'restaurant:SubmitComment' restaurant.id %}" method="post">
 {% csrf_token %}
-<p class="item">Name: <input type="text" name="name"></p>
+<p class="item">User Name: <input type="text" name="name"></p>
 <p class="item">Rate: <input type="number" name="rate"></p>
 <p class="item">Description: <input type="text" name="desc"></p>
 <input type="submit" value="comment" class="item">

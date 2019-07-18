@@ -14,7 +14,7 @@
                     {{ comment.c_rate }}</p>
                     {{ comment.c_desc }}
                     <div class="comment">
-                    <i counter="{{ forloop.counter }}" commentId="{{comment.id}}" class="fa fa-thumbs-up" style="margin: 5px;color:gray" ></i>
+                    <i counter="{{ forloop.counter }}" commentId="{{comment.id}}" click=true class="fa fa-thumbs-up" style="margin: 5px;color:gray" ></i>
                     <span id="like_count{{forloop.counter}}">{{comment.c_like}}</span>
                     <input class="ui-button" type="submit" value="Reply"></div>
                 </ul> </td></tr>
@@ -37,6 +37,9 @@
     <script>
     $(document).ready(function(){
         $("i").click(function(){
+          let like = $(this).attr("click")
+          console.log(typeof like)
+          if(like){
           $(this).css("color","red")
           var comment_id = $(this).attr("commentId")
           $.post(comment_id+"/likecomment/",
@@ -47,6 +50,8 @@
           var counter = $(this).attr("counter")
           var like_add = parseInt($('#like_count'+counter).html())+1
           $('#like_count'+counter).html(like_add)
-      })})
+          $(this).attr("click", null)
+        }
+    })})
       </script>
     

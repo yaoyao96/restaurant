@@ -20,11 +20,11 @@
 
    Click "Enter" button
 
-   <img src="doc/runserver.png"></img>
+   <img src="doc/runserver.PNG"></img>
 
 4. If succeed, the following message will come up.
 
-   <img src="doc/runserver2.png"></img>
+   <img src="doc/runserver2.PNG"></img>
 
 5. Use [Restaurant URL](http://127.0.0.1:8000/restaurant/) to experience the restaurant website.
 

@@ -1,10 +1,10 @@
 # SA47 Python CA -- Restaurant Review Web Application
 
-## Team Members
+## Team Members (Name/Email/Student ID)
 
-* Yao Jingyi
-* Zhou Shuxian
-* Wang Qiang
+* Yao Jingyi / jyyaoyaoyao@gmail.com / A0186839H
+* Zhou Shuxian /treezyzhou@outlook.com / A0186824U
+* Wang Qiang / e0321123@u.nus.edu / A0186885E
 
 ## Test Procedure
 
